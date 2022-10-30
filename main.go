@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
 
@@ -27,5 +28,5 @@ func main() {
 
 	// By default it serves on :8080 unless a
 	// PORT environment variable was defined.
-	router.Run(":8080")
+	router.Run(":" + os.Getenv("PORT"))
 }
