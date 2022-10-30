@@ -1,4 +1,4 @@
-module go-morning/good-morning
+module go-morning
 
 go 1.19
 

@@ -1,9 +1,11 @@
-package api
+package main
 
 import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+
+	"go-morning/usecase"
 )
 
 func main() {
@@ -21,13 +23,9 @@ func main() {
 		})
 	})
 
-	// dani := router.Group("/good")
-	// {
-	// 	dani.POST("/morning", sendGoodMorningMessage)
-	// 	// 	dani.POST("/night", nightEndpoint)
-	// }
+	router.POST("/morning", usecase.SendMorningMessage)
 
 	// By default it serves on :8080 unless a
 	// PORT environment variable was defined.
-	router.Run()
+	router.Run(":8080")
 }
