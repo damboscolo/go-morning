@@ -6,7 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"go-morning/usecase"
+	"go-morning/api"
 )
 
 func main() {
@@ -24,7 +24,8 @@ func main() {
 		})
 	})
 
-	router.POST("/morning", usecase.SendMorningMessage)
+	router.POST("/morning", api.SendMorningMessage)
+	router.POST("/dani", api.SaveDani)
 
 	// By default it serves on :8080 unless a
 	// PORT environment variable was defined.
