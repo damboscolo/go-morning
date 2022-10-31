@@ -1,9 +1,9 @@
 package api
 
 import (
-	"go-morning/entity/request"
-	infra_http "go-morning/infrastructure/http"
-	infra_repository "go-morning/infrastructure/repository"
+	"go-morning/model/request"
+	"go-morning/adapter/rest"
+	"go-morning/adapter/repository"
 	"go-morning/mapper"
 
 	"net/http"
@@ -13,7 +13,7 @@ import (
 
 func SendMorningMessage(c *gin.Context) {
 	message := "Bom dia família ❤️"
-	infra_http.SendTelegramMessage(message)
+	rest.SendTelegramMessage(message)
 }
 
 func SaveDani(c *gin.Context) {
@@ -23,8 +23,7 @@ func SaveDani(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusAccepted, &body)
 	dbmodel := mapper.Request_to_dbmodel(body)
 
-	infra_repository.SaveDani(dbmodel)
+	repository.SaveDani(dbmodel)
 }
