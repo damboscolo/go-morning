@@ -1,10 +1,13 @@
 package api
 
 import (
-	"go-morning/model/request"
-	"go-morning/adapter/rest"
+	"fmt"
 	"go-morning/adapter/repository"
+	"go-morning/adapter/rest"
 	"go-morning/mapper"
+	"go-morning/model/request"
+	"math/rand"
+	"time"
 
 	"net/http"
 
@@ -12,8 +15,15 @@ import (
 )
 
 func SendMorningMessage(c *gin.Context) {
-	message := "Bom dia família ❤️"
-	rest.SendTelegramMessage(message)
+	var mornings, err = repository.GetMorningMessages()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	rand.Seed(time.Now().UnixNano())
+	randIdx := rand.Intn(len(mornings))
+	rest.SendTelegramMessage(mornings[randIdx].Message)
+	fmt.Println("result=", mornings[randIdx])
 }
 
 func SaveDani(c *gin.Context) {
