@@ -25,6 +25,7 @@ func main() {
 	})
 
 	router.POST("/morning", api.SendMorningMessage)
+	router.POST("/evening", api.SendEveningMessage)
 	router.POST("/dani", api.SaveDani)
 
 	// By default it serves on :8080 unless a

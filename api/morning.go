@@ -23,7 +23,19 @@ func SendMorningMessage(c *gin.Context) {
 	rand.Seed(time.Now().UnixNano())
 	randIdx := rand.Intn(len(mornings))
 	rest.SendTelegramMessage(mornings[randIdx].Message)
-	fmt.Println("result=", mornings[randIdx])
+	fmt.Println("message=", mornings[randIdx])
+}
+
+func SendEveningMessage(c *gin.Context) {
+	var evenings, err = repository.GetEveningMessages()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	rand.Seed(time.Now().UnixNano())
+	randIdx := rand.Intn(len(evenings))
+	rest.SendTelegramMessage(evenings[randIdx].Message)
+	fmt.Println("message=", evenings[randIdx])
 }
 
 func SaveDani(c *gin.Context) {
