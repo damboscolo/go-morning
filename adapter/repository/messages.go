@@ -11,17 +11,17 @@ import (
 )
 
 func GetEveningMessages() ([]dbmodel.Evening, error) {
-	return getMessages[dbmodel.Evening]()
+	return getMessages[dbmodel.Evening]("evenings")
 }
 
 func GetMorningMessages() ([]dbmodel.Morning, error) {
-	return getMessages[dbmodel.Morning]()
+	return getMessages[dbmodel.Morning]("mornings")
 }
 
-func getMessages[T any]() ([]T, error) {
+func getMessages[T any](collectionName string) ([]T, error) {
 	var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
 	var messages []T
-	cursor, err := mongodb.GetCollection("evenings").Find(ctx, bson.M{})
+	cursor, err := mongodb.GetCollection(collectionName).Find(ctx, bson.M{})
 	if err != nil {
 		return []T{}, err
 	}
